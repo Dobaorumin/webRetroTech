@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Axios from "axios";
 export default function ProductosCategoria() {
   const { idCategoria } = useParams();
@@ -18,7 +18,12 @@ export default function ProductosCategoria() {
       {productosCategorias.map((value) => {
         return (
           <div>
-            <h1 key={value.idAnuncio}>{value.titulo}</h1>
+            <Link
+              key={value.idCategoria}
+              to={`/Categoria/${value.idCategoria}/${value.idAnuncio}`}
+            >
+              <h1 key={value.idAnuncio}>{value.titulo}</h1>
+            </Link>
             <p>{value.descripcion}</p>
             <b>{value.precio}€</b>
           </div>

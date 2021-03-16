@@ -6,6 +6,7 @@ import Categorias from "./pages/Categorias";
 import Nav from "./components/Nav";
 import { AuthProvider } from "./shared/context/authContext";
 import ProductosCategoria from "./pages/ProductosCategoria";
+import SingleProduct from "./pages/SingleProduct";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       <AuthProvider>
         <Nav></Nav>
         <Switch>
+          <Route exact path="/Categoria/:idCategoria/:idAnuncio">
+            <SingleProduct></SingleProduct>
+          </Route>
           <Route exact path="/Categoria/:idCategoria">
             <ProductosCategoria></ProductosCategoria>
           </Route>
