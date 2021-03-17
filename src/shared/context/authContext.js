@@ -28,12 +28,6 @@ export function AuthProvider({ children }) {
     history.push("/");
   };
 
-  // Método para registrarse
-  const signUp = async (email, contraseña) => {
-    const message = await register();
-    return message;
-  };
-
   // Método que borra las credenciales del localStorage y del state
   const signOut = () => {
     localStorage.removeItem("token");
@@ -44,9 +38,7 @@ export function AuthProvider({ children }) {
 
   // 4 devolvemos el provider metiendole dentro los children
   return (
-    <AuthContextProvider
-      value={{ userData, signIn, signOut, signUp, isUserLogged }}
-    >
+    <AuthContextProvider value={{ userData, signIn, signOut, isUserLogged }}>
       {children}
     </AuthContextProvider>
   );
