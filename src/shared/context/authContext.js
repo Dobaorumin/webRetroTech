@@ -1,7 +1,7 @@
 import React from "react";
 import decodeTokenData from "../utils/decodeToken";
 import { useState } from "react";
-import { login, register } from "../../http/api";
+import { login, signUpApi } from "../../http/api";
 import { useHistory } from "react-router-dom";
 
 // 1 Creamos el contexto y exportamos para usar en el hook
@@ -15,7 +15,6 @@ const tokenObject = decodeTokenData(token);
 // 3 Creamos un custom provider
 export function AuthProvider({ children }) {
   const [userData, setUserData] = useState(tokenObject);
-  const [isUserLogged, setIsUserLogged] = useState(!!tokenObject);
   const history = useHistory();
 
   // Método para hacer log in desde los componentes
@@ -24,21 +23,26 @@ export function AuthProvider({ children }) {
     localStorage.setItem("token", loginData);
     const tokenObject = decodeTokenData(loginData);
     setUserData(tokenObject);
-    setIsUserLogged(true);
+    history.push("/");
+  };
+
+  //Método para registrarte
+  const signUp = async (data) => {
+    const signUpData = await signUpApi(data);
+    console.log(signUpData);
     history.push("/");
   };
 
   // Método que borra las credenciales del localStorage y del state
-  const signOut = () => {
+  const logOut = () => {
     localStorage.removeItem("token");
     history.push("/login");
     setUserData(null);
-    setIsUserLogged(false);
   };
 
   // 4 devolvemos el provider metiendole dentro los children
   return (
-    <AuthContextProvider value={{ userData, signIn, signOut, isUserLogged }}>
+    <AuthContextProvider value={{ userData, signIn, logOut, signUp }}>
       {children}
     </AuthContextProvider>
   );

@@ -1,16 +1,28 @@
 const apiUrl = "http://localhost:3001";
-const requestMethods = { post: "POST", get: "GET" };
+const requestMethods = {
+  post: "POST",
+  get: "GET",
+  put: "PUT",
+  delete: "DELETE",
+};
 const endpoints = {
-  login: "/users/login",
-  signUp: "/users",
-  getUserInfo: "/users/",
-  entries: "/entries",
+  login: "/usuarios/login",
+  signUp: "/usuarios",
+  getUserInfo: "/usuarios/",
+  getCategoria: "/comprar",
+  getProductosCategoria: "/comprar/",
+  getSingleProduct: "/comprar/",
 };
 
-/**
- * Este metodo es generico y me va a servir para hacer peticiones en las que no subo ficheros
- */
-async function genericRequest(path, { body, method }) {
+async function fetchFormData(path, { body, method }) {
+  const token = localStorage.getItem("token");
+  const headers = new Headers();
+  headers.append("Authorization", token);
+
+  return await fetch(`${apiUrl}${path}`, { method, headers, body });
+}
+
+async function fetchApi(path, { body, method }) {
   const token = localStorage.getItem("token");
   const headers = new Headers({ "Content-Type": "application/json" });
   if (token) {
@@ -28,15 +40,52 @@ async function genericRequest(path, { body, method }) {
   return requestData;
 }
 
-/**
- * Con esta función hago peticiones de login
- */
-export async function login(email, password) {
-  const tokenData = await genericRequest(endpoints.login, {
+export async function login(email, contraseña) {
+  const tokenData = await fetchApi(endpoints.login, {
     method: requestMethods.post,
-    body: { email, password },
+    body: { email, contraseña },
   });
   const token = tokenData.data.token;
   localStorage.setItem("token", token);
   return token;
+}
+
+//REGISTRO
+export async function signUpApi(data) {
+  return await fetchApi(endpoints.signUp, {
+    method: requestMethods.post,
+    body: data,
+  });
+}
+
+export async function getUserInfo(userId) {
+  const userData = await fetchApi(`${endpoints.getUserInfo}/${userId}`, {
+    method: requestMethods.get,
+  });
+  return userData.data;
+}
+
+export async function getCategoria() {
+  const categoria = await fetchApi(`${endpoints.getCategoria}`, {
+    method: requestMethods.get,
+  });
+  return categoria;
+}
+
+export async function getProductosCategorias(idCategoria) {
+  const productosCategoria = await fetchApi(
+    `${endpoints.getProductosCategoria}${idCategoria}`,
+    {
+      method: requestMethods.get,
+    }
+  );
+  return productosCategoria.data;
+}
+
+export async function getSingleProduct(idCategoria, idAnuncio) {
+  const soloUnProducto = await fetchApi(
+    `${endpoints.getSingleProduct}${idCategoria}/${idAnuncio}`,
+    { method: requestMethods.get }
+  );
+  return soloUnProducto.data;
 }

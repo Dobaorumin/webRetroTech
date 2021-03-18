@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import Axios from "axios";
 import { Link } from "react-router-dom";
-
+import { getCategoria } from "../http/api";
 //Endpoint Listo ✔️
 
 export default function Categorias() {
   const [categoria, setCategoria] = useState([]);
   useEffect(() => {
-    Axios.get("http://localhost:3001/comprar").then((response) => {
-      setCategoria(response.data.data);
+    getCategoria().then((categoria) => {
+      setCategoria(categoria.data);
     });
   }, []);
+
   return (
     <div>
       <h1>Categorias</h1>

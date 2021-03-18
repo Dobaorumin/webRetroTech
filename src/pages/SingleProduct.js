@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
+import { getSingleProduct } from "../http/api";
 
 export default function SingleProduct() {
   const { idCategoria, idAnuncio } = useParams();
   const [productoEspecifico, setProductoEspecifico] = useState([]);
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/comprar/${idCategoria}/${idAnuncio}`).then(
-      (response) => {
-        setProductoEspecifico(response.data.data);
-      }
-    );
-  }, []);
+    getSingleProduct(idCategoria, idAnuncio).then((value) => {
+      setProductoEspecifico(value);
+    });
+  }, [idCategoria, idAnuncio]);
   return (
     <div>
       {productoEspecifico.map((value) => {

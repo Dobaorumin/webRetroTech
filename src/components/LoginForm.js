@@ -1,21 +1,35 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-export default function LoginForm(props) {
-  const { handleSubmit, errors } = useForm();
-  const onSubmit = async (data) => {
-    await props.onSubmit(data.email, data.contraseña);
+import useAuth from "../shared/hooks/useAuth";
+
+export default function LoginForm() {
+  const { signIn } = useAuth();
+  const { handleSubmit, errors, register } = useForm();
+
+  const onSubmitLogin = (data) => {
+    signIn(data.email, data.contraseña);
   };
+
   return (
     <section className="page">
       <h1>Inicia Sesión</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmitLogin)}>
         <label htmlFor="email">Email:</label>
-        {errors.email && <p className="error">Usuario incorrecto</p>}
-        <input id="email" name="email" />
+        {Error.email && <p className="error">Usuario incorrecto</p>}
+        <input id="email" name="email" type="email" ref={register()} />
         <label htmlFor="contraseña">Contraseña:</label>
-        {errors.contraseña && <p className="error">Usuario incorrecto</p>}
-        <input id="contraseña" name="contraseña" type="contraseña" />
+        {Error.contraseña && <p className="error">Usuario incorrecto</p>}
+        <input
+          id="contraseña"
+          name="contraseña"
+          type="contraseña"
+          ref={register()}
+        />
         <input type="submit" />
+        {/*{statusMessage.length > 0 && (
+          <p className="status-ok">{statusMessage}</p>
+        )}
+        {errorMessage.length > 0 && <p className="error">{errorMessage}</p>}*/}
       </form>
     </section>
   );

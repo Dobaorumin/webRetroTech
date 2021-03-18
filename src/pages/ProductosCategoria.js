@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import Axios from "axios";
+import { getProductosCategorias } from "../http/api";
 export default function ProductosCategoria() {
   const { idCategoria } = useParams();
   const [productosCategorias, setProductosCategorias] = useState([]);
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/comprar/${idCategoria}`).then(
-      (response) => {
-        setProductosCategorias(response.data.data);
-      }
-    );
-  }, []);
+    getProductosCategorias(idCategoria).then((value) => {
+      setProductosCategorias(value);
+    });
+  }, [idCategoria]);
   return (
     <div>
       <h1>Categorias</h1>
@@ -24,8 +22,8 @@ export default function ProductosCategoria() {
             >
               <h1 key={value.idAnuncio}>{value.titulo}</h1>
             </Link>
-            <p>{value.descripcion}</p>
-            <b>{value.precio}€</b>
+            <p key={value.descripcion}>{value.descripcion}</p>
+            <b key={value.precio}>{value.precio}€</b>
           </div>
         );
       })}

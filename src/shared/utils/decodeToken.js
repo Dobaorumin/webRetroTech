@@ -1,10 +1,9 @@
-export default function decodeToken(token) {
+export default function decodeTokenData(token) {
   if (!token) {
     return null;
   }
-  // PArtimos el token por el separador que es el . y pillamos el trozo del medio
-  const userDataString = token.split(".")[1];
-  // Reconstruimos el objeto que tiene los datos del usuario
-  const userDataDecoded = JSON.parse(atob(userDataString));
-  return userDataDecoded;
+  const tokenPieces = token.split(".");
+  const tokenBase64 = tokenPieces[1];
+  const decodedToken = atob(tokenBase64);
+  return JSON.parse(decodedToken);
 }

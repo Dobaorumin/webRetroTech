@@ -1,65 +1,17 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "../css/App.css";
+import useAuth from "../shared/hooks/useAuth";
 export default function RegisterForm() {
+  const { signUp } = useAuth();
   const { handleSubmit, register, errors } = useForm();
-  const [enviando, setEnviando] = useState(false);
-  const [serverError, setServerError] = useState([]);
-  const [message, setMessage] = useState([]);
+  const newRegister = (data) => {
+    signUp(data);
+  };
   return (
     <section className="page">
       <h1>Regístrate</h1>
-      <form
-        onSubmit={handleSubmit(async (formData) => {
-          setEnviando(true);
-          setServerError([]);
-          const response = await fetch("http://localhost:3001/usuarios", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userName: formData.userName,
-              nombre: formData.nombre,
-              apellidos: formData.apellidos,
-              ciudad: formData.ciudad,
-              pais: formData.pais,
-              codigoPostal: formData.codigoPostal,
-              fechaNacimiento: formData.fechaNacimiento,
-              email: formData.email,
-              contraseña: formData.contraseña,
-            }),
-          });
-          const data = await response.json();
-          if (data.errors) {
-            setServerError(data.errors);
-          } else {
-            console.log("succes,redirect to home page");
-          }
-          setMessage(data);
-          setEnviando(false);
-          console.log(serverError);
-        })}
-      >
-        {message ? (
-          <ul>
-            {message.map((value) => (
-              <li>
-                {console.log(value)}
-                {value.message}
-              </li>
-            ))}
-          </ul>
-        ) : null}
-        {serverError ? (
-          <ul>
-            {serverError.map((error) => (
-              <li className="error" key={error}>
-                {error}
-              </li>
-            ))}
-          </ul>
-        ) : null}
+      <form onSubmit={handleSubmit(newRegister)}>
         <div>
           <label htmlFor="userName">Nombre de Usuario:</label>
           <input
@@ -188,9 +140,7 @@ export default function RegisterForm() {
           ) : null}
         </div>
         <div>
-          <button type="submit" disabled={enviando}>
-            Registrate
-          </button>
+          <button type="submit">Registrate</button>
         </div>
       </form>
     </section>
