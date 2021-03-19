@@ -15,6 +15,9 @@ export default function Nav() {
       <div className="header-item">
         <Link to="/Registrate">Regístrate</Link>
       </div>
+      <div className="header-item">
+        <Link to="/Perfil">Perfil</Link>
+      </div>
     </nav>
   );
 }

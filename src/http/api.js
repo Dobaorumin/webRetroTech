@@ -58,8 +58,8 @@ export async function signUpApi(data) {
   });
 }
 
-export async function getUserInfo(userId) {
-  const userData = await fetchApi(`${endpoints.getUserInfo}/${userId}`, {
+export async function getUserInfo(idUsuario) {
+  const userData = await fetchApi(`${endpoints.getUserInfo}${idUsuario}`, {
     method: requestMethods.get,
   });
   return userData.data;

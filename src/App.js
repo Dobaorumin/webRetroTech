@@ -7,6 +7,7 @@ import Nav from "./components/Nav";
 import { AuthProvider } from "./shared/context/authContext";
 import ProductosCategoria from "./pages/ProductosCategoria";
 import SingleProduct from "./pages/SingleProduct";
+import Perfil from "./pages/Perfil";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route exact path="/">
             <Inicio></Inicio>
+          </Route>
+          <Route exact path="/Perfil">
+            <Perfil></Perfil>
           </Route>
           <Route exact path="/Categoria">
             <Categorias></Categorias>

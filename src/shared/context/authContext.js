@@ -15,6 +15,7 @@ const tokenObject = decodeTokenData(token);
 // 3 Creamos un custom provider
 export function AuthProvider({ children }) {
   const [userData, setUserData] = useState(tokenObject);
+  const [isUserLogged, setIsUserLogged] = useState(!!tokenObject);
   const history = useHistory();
 
   // Método para hacer log in desde los componentes
@@ -23,6 +24,11 @@ export function AuthProvider({ children }) {
     localStorage.setItem("token", loginData);
     const tokenObject = decodeTokenData(loginData);
     setUserData(tokenObject);
+    if (tokenObject === 1) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+    }
     history.push("/");
   };
 
@@ -42,7 +48,9 @@ export function AuthProvider({ children }) {
 
   // 4 devolvemos el provider metiendole dentro los children
   return (
-    <AuthContextProvider value={{ userData, signIn, logOut, signUp }}>
+    <AuthContextProvider
+      value={{ isUserLogged, userData, signIn, logOut, signUp }}
+    >
       {children}
     </AuthContextProvider>
   );
