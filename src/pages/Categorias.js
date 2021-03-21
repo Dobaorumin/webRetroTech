@@ -12,12 +12,12 @@ export default function Categorias() {
   }, []);
 
   return (
-    <div>
+    <div className="page">
       <h1>Categorias</h1>
       {categoria.map((value) => {
         return (
           <Link key={value.idCategoria} to={`/Categoria/${value.idCategoria}`}>
-            <h1 key={value.idCategoria}>{value.nombre}</h1>
+            <button key={value.idCategoria}>{value.nombre}</button>
           </Link>
         );
       })}

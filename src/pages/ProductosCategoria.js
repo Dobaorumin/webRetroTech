@@ -11,11 +11,11 @@ export default function ProductosCategoria() {
     });
   }, [idCategoria]);
   return (
-    <div>
+    <div className="page">
       <h1>Categorias</h1>
       {productosCategorias.map((value) => {
         return (
-          <div>
+          <div className="page">
             <Link
               key={value.idCategoria}
               to={`/Categoria/${value.idCategoria}/${value.idAnuncio}`}

@@ -18,6 +18,12 @@ export default function Nav() {
       <div className="header-item">
         <Link to="/Perfil">Perfil</Link>
       </div>
+      <div className="header-item">
+        <Link to="/SubirProducto">+</Link>
+      </div>
+      <div className="header-item">
+        <Link to="/MisAnuncios">Mis Anuncios</Link>
+      </div>
     </nav>
   );
 }

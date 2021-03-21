@@ -8,6 +8,8 @@ import { AuthProvider } from "./shared/context/authContext";
 import ProductosCategoria from "./pages/ProductosCategoria";
 import SingleProduct from "./pages/SingleProduct";
 import Perfil from "./pages/Perfil";
+import SubirProducto from "./pages/SubirProducto";
+import MisAnuncios from "./pages/MisAnuncios";
 
 function App() {
   return (
@@ -23,6 +25,12 @@ function App() {
           </Route>
           <Route exact path="/">
             <Inicio></Inicio>
+          </Route>
+          <Route exact path="/MisAnuncios">
+            <MisAnuncios></MisAnuncios>
+          </Route>
+          <Route exact path="/SubirProducto">
+            <SubirProducto></SubirProducto>
           </Route>
           <Route exact path="/Perfil">
             <Perfil></Perfil>

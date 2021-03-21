@@ -12,6 +12,9 @@ const endpoints = {
   getCategoria: "/comprar",
   getProductosCategoria: "/comprar/",
   getSingleProduct: "/comprar/",
+  uploadProduct: "/subir",
+  listMyProducts: "/mis-anuncios/",
+  editUserInfo: "/usuarios/",
 };
 
 async function fetchFormData(path, { body, method }) {
@@ -88,4 +91,51 @@ export async function getSingleProduct(idCategoria, idAnuncio) {
     { method: requestMethods.get }
   );
   return soloUnProducto.data;
+}
+
+export async function uploadProduct(data) {
+  const body = new FormData();
+  body.append("titulo", data.titulo);
+  body.append("descripcion", data.descripcion);
+  body.append("precio", data.precio);
+  body.append("provincia", data.provincia);
+  body.append("localidad", data.localidad);
+  body.append("images", data.images);
+  body.append("idCategoria", data.idCategoria);
+  return await fetchFormData(endpoints.uploadProduct, {
+    method: requestMethods.post,
+    body,
+  });
+}
+
+export async function listMyProducts(idUsuario) {
+  const product = await fetchApi(`${endpoints.listMyProducts}${idUsuario}`, {
+    method: requestMethods.get,
+  });
+  return product.data;
+}
+
+export async function editUserInfo(
+  id,
+  nombre,
+  apellidos,
+  localidad,
+  pais,
+  provincia,
+  email,
+  ciudad
+) {
+  const userData = await fetchApi(`${endpoints.editUserInfo}${id}`, {
+    method: requestMethods.put,
+    body: {
+      nombre,
+      apellidos,
+      localidad,
+      pais,
+      provincia,
+      email,
+      ciudad,
+    },
+  });
+  return userData.data;
 }

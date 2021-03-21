@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Axios from "axios";
 import { getSingleProduct } from "../http/api";
 
 export default function SingleProduct() {
@@ -13,10 +12,10 @@ export default function SingleProduct() {
     });
   }, [idCategoria, idAnuncio]);
   return (
-    <div>
+    <div ClassName="page">
       {productoEspecifico.map((value) => {
         return (
-          <div key={value.idAnuncio}>
+          <div ClassName="page" key={value.idAnuncio}>
             <h1>{value.titulo}</h1>
             <p>{value.descripcion}</p>
             <b>{value.precio}</b>
