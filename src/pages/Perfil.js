@@ -1,8 +1,9 @@
 import useAuth from "../shared/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { editUserInfo, getUserInfo } from "../http/api";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Solicitudes from "../components/Solicitudes";
 //Endpoint Listo ✔️
 
 export default function Categorias() {
@@ -84,6 +85,9 @@ export default function Categorias() {
         </div>
         <button type="submit">Cambiar información</button>
       </form>
+      <div>
+        <Link to="/solicitudes">Solicitudes</Link>
+      </div>
     </div>
   );
 }

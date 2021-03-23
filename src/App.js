@@ -10,6 +10,7 @@ import SingleProduct from "./pages/SingleProduct";
 import Perfil from "./pages/Perfil";
 import SubirProducto from "./pages/SubirProducto";
 import MisAnuncios from "./pages/MisAnuncios";
+import Solicitudes from "./components/Solicitudes";
 
 function App() {
   return (
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route exact path="/Registrate">
             <Registrate></Registrate>
+          </Route>
+          <Route exact path="/solicitudes">
+            <Solicitudes></Solicitudes>
           </Route>
         </Switch>
       </AuthProvider>

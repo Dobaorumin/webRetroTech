@@ -15,6 +15,7 @@ const endpoints = {
   uploadProduct: "/subir",
   listMyProducts: "/mis-anuncios/",
   editUserInfo: "/usuarios/",
+  listarSolicitudes: "/mis-solicitudes/",
 };
 
 async function fetchFormData(path, { body, method }) {
@@ -138,4 +139,21 @@ export async function editUserInfo(
     },
   });
   return userData.data;
+}
+export async function reserveProduct(idCategoria, idAnuncio, mensajeCompra) {
+  const response = await fetchApi(
+    `${endpoints.getProductosCategoria}${idCategoria}/${idAnuncio}/proponer-compra`,
+    {
+      method: requestMethods.post,
+      body: mensajeCompra,
+    }
+  );
+  return console.log(response.data);
+}
+
+export async function listarSolicitudes(idUsuario) {
+  const solicitudes = fetchApi(`${endpoints.listarSolicitudes}${idUsuario}`, {
+    method: requestMethods.get,
+  });
+  return solicitudes;
 }
