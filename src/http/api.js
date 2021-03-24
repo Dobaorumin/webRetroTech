@@ -16,6 +16,8 @@ const endpoints = {
   listMyProducts: "/mis-anuncios/",
   editUserInfo: "/usuarios/",
   listarSolicitudes: "/mis-solicitudes/",
+  aceptarReserva: "/mis-anuncios/",
+  borrarReserva: "/mis-anuncios/",
 };
 
 async function fetchFormData(path, { body, method }) {
@@ -156,4 +158,35 @@ export async function listarSolicitudes(idUsuario) {
     method: requestMethods.get,
   });
   return solicitudes;
+}
+
+export async function aceptarReserva(idAnuncio, idCompra, data) {
+  const response = await fetchApi(
+    `${endpoints.aceptarReserva}${idAnuncio}/solicitudes/${idCompra}`,
+    {
+      method: requestMethods.put,
+      body: { lugarEntrega: data.lugarEntrega, horaEntrega: data.horaEntrega },
+    }
+  );
+  return console.log(response);
+}
+
+export async function deleteReserve(idCompra) {
+  const responseDelete = await fetchApi(
+    `${endpoints.borrarReserva}${idCompra}/solicitudes`,
+    {
+      method: requestMethods.delete,
+    }
+  );
+  return responseDelete;
+}
+
+export async function productoVendido(idAnuncio, idCompra) {
+  const responseVendido = await fetchApi(
+    `${endpoints.borrarReserva}${idAnuncio}/${idCompra}/vendido`,
+    {
+      method: requestMethods.put,
+    }
+  );
+  return responseVendido;
 }

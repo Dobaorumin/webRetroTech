@@ -16,6 +16,9 @@ form input {
 .error {
   color: red;
 }
+.success {
+  color: mediumslateblue;
+}
 label {
   display: flex;
   flex-direction: column;

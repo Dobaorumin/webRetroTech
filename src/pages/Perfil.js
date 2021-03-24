@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import Solicitudes from "../components/Solicitudes";
 //Endpoint Listo ✔️
 
-export default function Categorias() {
+export default function Perfil() {
   const { userData, signOut, setIsUserLogged } = useAuth();
   const [userInfo, setUserInfo] = useState([]);
   const history = useHistory();
