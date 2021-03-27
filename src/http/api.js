@@ -1,3 +1,5 @@
+import SearchInput from "../components/SearchInput";
+
 const apiUrl = "http://localhost:3001";
 const requestMethods = {
   post: "POST",
@@ -18,6 +20,7 @@ const endpoints = {
   listarSolicitudes: "/mis-solicitudes/",
   aceptarReserva: "/mis-anuncios/",
   borrarReserva: "/mis-anuncios/",
+  getSearch: "/busqueda?search=",
 };
 
 async function fetchFormData(path, { body, method }) {
@@ -189,4 +192,11 @@ export async function productoVendido(idAnuncio, idCompra) {
     }
   );
   return responseVendido;
+}
+
+export async function getSearch(input) {
+  const userData = await fetchApi(`${endpoints.getSearch}${input}`, {
+    method: requestMethods.get,
+  });
+  return userData.data;
 }
